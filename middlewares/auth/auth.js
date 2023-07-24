@@ -4,6 +4,8 @@ const { isTokenIncluded } = require("../../helpers/token/tokenHelpers");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 const Product = require("../../models/Product");
+const Cart = require("../../models/Cart");
+const Order = require("../../models/Order");
 
 const getAccessToRoute = errorWrapper(async (req, res, next) => {
   if (!isTokenIncluded(req))
@@ -56,6 +58,26 @@ const adminCanOperateUser = errorWrapper(async (req, res, next) => {
   }
 });
 
+const adminCanOperateCart = errorWrapper(async (req, res, next) => {
+  const cart = await Cart.findById(req.params.id);
+
+  if (String(cart.customer) === String(req.user._id) || req.user.isAdmin) {
+    return next();
+  } else {
+    return next(new CustomError("You can't do this operation.", 403));
+  }
+});
+
+const adminCanOperateOrder = errorWrapper(async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+
+  if (String(order.customer) === String(req.user._id) || req.user.isAdmin) {
+    return next();
+  } else {
+    return next(new CustomError("You can't do this operation.", 403));
+  }
+});
+
 const onlyAdminCanOperate = errorWrapper(async (req, res, next) => {
   if (!req.user.isAdmin) {
     return next(
@@ -70,5 +92,7 @@ module.exports = {
   getAccessToRoute,
   adminCanOperateProduct,
   adminCanOperateUser,
+  adminCanOperateCart,
+  adminCanOperateOrder,
   onlyAdminCanOperate,
 };

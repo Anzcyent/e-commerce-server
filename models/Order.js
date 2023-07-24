@@ -20,8 +20,8 @@ const OrderSchema = new Schema(
       type: Number,
     },
     address: {
-      Type: Object,
-      required: [true, "Address is required."],
+      type: String,
+      required: [true, "Address is required"],
     },
     status: {
       type: String,
