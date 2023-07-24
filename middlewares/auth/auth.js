@@ -36,10 +36,20 @@ const getAccessToRoute = errorWrapper(async (req, res, next) => {
   );
 });
 
-const adminCanOperate = errorWrapper(async (req, res, next) => {
+const adminCanOperateProduct = errorWrapper(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
 
   if (String(product.owner) === String(req.user._id) || req.user.isAdmin) {
+    return next();
+  } else {
+    return next(new CustomError("You can't do this operation.", 403));
+  }
+});
+
+const adminCanOperateUser = errorWrapper(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (String(user._id) === String(req.user._id) || req.user.isAdmin) {
     return next();
   } else {
     return next(new CustomError("You can't do this operation.", 403));
@@ -56,4 +66,9 @@ const onlyAdminCanOperate = errorWrapper(async (req, res, next) => {
   }
 });
 
-module.exports = { getAccessToRoute, adminCanOperate, onlyAdminCanOperate };
+module.exports = {
+  getAccessToRoute,
+  adminCanOperateProduct,
+  adminCanOperateUser,
+  onlyAdminCanOperate,
+};

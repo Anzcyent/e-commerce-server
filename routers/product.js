@@ -8,14 +8,14 @@ const {
 } = require("../controllers/product");
 const {
   getAccessToRoute,
-  adminCanOperate,
+  adminCanOperateProduct,
 } = require("../middlewares/auth/auth");
 
 router.post("/create", getAccessToRoute, createProduct);
-router.put("/update/:id", [getAccessToRoute, adminCanOperate], updateProduct);
+router.put("/update/:id", [getAccessToRoute, adminCanOperateProduct], updateProduct);
 router.delete(
   "/delete/:id",
-  [getAccessToRoute, adminCanOperate],
+  [getAccessToRoute, adminCanOperateProduct],
   deleteProduct
 );
 
