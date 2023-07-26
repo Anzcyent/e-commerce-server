@@ -6,7 +6,7 @@ const ProductSchema = new Schema(
       type: String,
       required: [true, "Prodcut must have an title"],
       maxlength: [100, "Please provide maximum 100 characters for title."],
-      unique: true
+      unique: true,
     },
     description: String,
     owner: {
@@ -17,12 +17,10 @@ const ProductSchema = new Schema(
         "Please provide maximum 500 characters for description.",
       ],
     },
-    category: [
-      {
-        type: String,
-        required: [true, "Product must have a category"],
-      },
-    ],
+    categoryId: {
+      type: String,
+      required: [true, "Product must have a category"],
+    },
     price: {
       type: Number,
       required: [true, "Product must have a price"],
@@ -37,7 +35,7 @@ const ProductSchema = new Schema(
     },
     image: {
       type: String,
-      default: "/assets/product.png"
+      default: "/assets/product.png",
     },
   },
   {
