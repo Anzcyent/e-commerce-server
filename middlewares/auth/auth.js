@@ -92,7 +92,19 @@ const isUserSeller = errorWrapper(async (req, res, next) => {
   if (req.user.isSeller) {
     next();
   } else {
-    return next(new CustomError("You have to be a seller for this operation.", 403));
+    return next(
+      new CustomError("You have to be a seller for this operation.", 403)
+    );
+  }
+});
+
+const onlyFounderCanOperate = errorWrapper(async (req, res, next) => {
+  if (req.user.username === "Anzcyent") {
+    next();
+  } else {
+    return next(
+      new CustomError("You don't have permission for this operation.", 403)
+    );
   }
 });
 
@@ -103,5 +115,6 @@ module.exports = {
   adminCanOperateCart,
   adminCanOperateOrder,
   onlyAdminCanOperate,
+  onlyFounderCanOperate,
   isUserSeller,
 };

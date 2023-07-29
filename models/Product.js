@@ -21,7 +21,8 @@ const ProductSchema = new Schema(
       required: [true, "Prodcut must have a owner"],
     },
     category: {
-      type: String,
+      type: Types.ObjectId,
+      ref: "Category",
       required: [true, "Product must have a category"],
     },
     price: {
