@@ -6,12 +6,13 @@ const { isMatchPassword } = require("../helpers/auth/authHelpers");
 const jwt = require("jsonwebtoken");
 
 const register = errorWrapper(async (req, res, next) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, isSeller } = req.body;
 
   const user = await User.create({
     username,
     email,
     password,
+    isSeller
   });
 
   sendJWTToClient(user, res);

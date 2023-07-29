@@ -1,9 +1,21 @@
 const errorWrapper = require("express-async-handler");
 const Product = require("../models/Product");
+const User = require("../models/User");
 const CustomError = require("../helpers/error/CustomError");
 
 const createProduct = errorWrapper(async (req, res, next) => {
   const product = await Product.create({ ...req.body, owner: req.user._id });
+  const user = await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      $push: {
+        products: product._id,
+      },
+    },
+    {
+      new: true,
+    }
+  );
 
   return res.status(201).json({
     product,
@@ -28,6 +40,18 @@ const deleteProduct = errorWrapper(async (req, res, next) => {
   const product = await Product.findByIdAndDelete(req.params.id);
 
   if (!product) return next(new CustomError("Product not found", 404));
+
+  const seller = await User.findByIdAndUpdate(
+    product.seller,
+    {
+      $pull: {
+        products: product._id,
+      },
+    },
+    {
+      new: true,
+    }
+  );
 
   return res.status(200).json({ product });
 });

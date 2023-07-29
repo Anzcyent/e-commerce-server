@@ -88,6 +88,14 @@ const onlyAdminCanOperate = errorWrapper(async (req, res, next) => {
   }
 });
 
+const isUserSeller = errorWrapper(async (req, res, next) => {
+  if (req.user.isSeller) {
+    next();
+  } else {
+    return next(new CustomError("You have to be a seller for this operation.", 403));
+  }
+});
+
 module.exports = {
   getAccessToRoute,
   adminCanOperateProduct,
@@ -95,4 +103,5 @@ module.exports = {
   adminCanOperateCart,
   adminCanOperateOrder,
   onlyAdminCanOperate,
+  isUserSeller,
 };

@@ -15,11 +15,12 @@ const ProductSchema = new Schema(
         "Please provide maximum 500 characters for description.",
       ],
     },
-    owner: {
+    seller: {
       type: Types.ObjectId,
       ref: "User",
+      required: [true, "Prodcut must have a owner"],
     },
-    categoryId: {
+    category: {
       type: String,
       required: [true, "Product must have a category"],
     },

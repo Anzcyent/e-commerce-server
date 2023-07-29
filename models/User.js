@@ -31,6 +31,14 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    isSeller: {
+      type: Boolean,
+      default: false,
+    },
+    products: {
+      type: Types.ObjectId,
+      ref: "Product",
+    },
   },
   {
     timestamps: true,
@@ -41,7 +49,7 @@ UserSchema.methods.createAccessToken = function () {
   const payload = {
     _id: this._id,
     username: this.username,
-    isAdmin: this.isAdmin
+    isAdmin: this.isAdmin,
   };
 
   const token = jwt.sign(payload, process.env.JWT_ACCESS_SECRET, {
@@ -55,7 +63,7 @@ UserSchema.methods.createRefreshToken = function () {
   const payload = {
     _id: this._id,
     username: this.username,
-    isAdmin: this.isAdmin
+    isAdmin: this.isAdmin,
   };
 
   const token = jwt.sign(payload, process.env.JWT_REFRESH_SECRET, {
