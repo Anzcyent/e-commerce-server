@@ -6,8 +6,9 @@ const CategorySchema = new Schema(
       type: String,
       required: [true, "Category must have a name."],
       maxlength: [35, "Category name is too long!"],
-      unique: true
+      unique: true,
     },
+    description: String,
   },
   {
     timestamps: true,

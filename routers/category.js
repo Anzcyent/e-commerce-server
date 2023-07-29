@@ -1,4 +1,4 @@
-const { createCategory } = require("../controllers/category");
+const { createCategory, updateCategory } = require("../controllers/category");
 const {
   getAccessToRoute,
   onlyFounderCanOperate,
@@ -7,5 +7,6 @@ const {
 const router = require("express").Router();
 
 router.post("/create", [getAccessToRoute, onlyFounderCanOperate], createCategory);
+router.put("/update/:id", [getAccessToRoute, onlyFounderCanOperate], updateCategory);
 
 module.exports = router;
