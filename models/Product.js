@@ -8,14 +8,16 @@ const ProductSchema = new Schema(
       maxlength: [100, "Please provide maximum 100 characters for title."],
       unique: true,
     },
-    description: String,
-    owner: {
-      type: Types.ObjectId,
-      ref: "User",
+    description: {
+      type: String,
       maxlength: [
         500,
         "Please provide maximum 500 characters for description.",
       ],
+    },
+    owner: {
+      type: Types.ObjectId,
+      ref: "User",
     },
     categoryId: {
       type: String,
