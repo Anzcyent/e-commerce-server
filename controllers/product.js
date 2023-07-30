@@ -67,9 +67,14 @@ const getProduct = errorWrapper(async (req, res, next) => {
 });
 
 const getAllProducts = errorWrapper(async (req, res, next) => {
-  const products = await Product.find();
+  const sort = req.query.sort;
 
-  return res.status(200).json({ products });
+  const products =
+    sort === "new"
+      ? await Product.find().sort({ _id: -1 }).limit(15)
+      : await Product.find();
+
+  return res.status(200).json({ products, result: products.length });
 });
 
 module.exports = {

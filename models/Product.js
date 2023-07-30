@@ -4,9 +4,8 @@ const ProductSchema = new Schema(
   {
     title: {
       type: String,
-      required: [true, "Prodcut must have an title"],
-      maxlength: [100, "Please provide maximum 100 characters for title."],
-      unique: true,
+      required: [true, "Product must have a name"],
+      maxlength: [100, "Please provide maximum 100 characters for name."],
     },
     description: {
       type: String,
