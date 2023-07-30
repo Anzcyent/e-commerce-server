@@ -57,7 +57,9 @@ const deleteProduct = errorWrapper(async (req, res, next) => {
 });
 
 const getProduct = errorWrapper(async (req, res, next) => {
-  const product = await Product.findById(req.params.id).populate("category").populate({path: "seller", select:"username"});
+  const product = await Product.findById(req.params.id)
+    .populate("category")
+    .populate({ path: "seller", select: "username" });
 
   if (!product) return next(new CustomError("Product not found", 404));
 
@@ -67,11 +69,13 @@ const getProduct = errorWrapper(async (req, res, next) => {
 });
 
 const getAllProducts = errorWrapper(async (req, res, next) => {
-  const sort = req.query.sort;
+  const { sort, category } = req.query;
 
   const products =
     sort === "new"
       ? await Product.find().sort({ _id: -1 }).limit(15)
+      : category
+      ? await Product.find({ category }).limit(15)
       : await Product.find();
 
   return res.status(200).json({ products, result: products.length });
