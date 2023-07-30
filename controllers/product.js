@@ -57,7 +57,7 @@ const deleteProduct = errorWrapper(async (req, res, next) => {
 });
 
 const getProduct = errorWrapper(async (req, res, next) => {
-  const product = await Product.findById(req.params.id);
+  const product = await Product.findById(req.params.id).populate("category").populate({path: "seller", select:"username"});
 
   if (!product) return next(new CustomError("Product not found", 404));
 
