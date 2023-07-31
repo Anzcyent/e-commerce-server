@@ -10,13 +10,10 @@ const CartSchema = new Schema(
       {
         type: Types.ObjectId,
         ref: "Product",
-        quantity: {
-          type: Number,
-          default: 1,
-        },
-        price: Number,
       },
     ],
+    total: Number,
+    quantity: Number
   },
   {
     timestamps: true,

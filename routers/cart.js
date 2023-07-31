@@ -19,7 +19,7 @@ router.put("/update/:id", updateCart);
 
 router.delete("/delete/:id", deleteCart);
 
-router.get("/:id", getAccessToRoute, getCart);
+router.get("/:id", getCart);
 router.get("/", [getAccessToRoute, onlyAdminCanOperate], getAllCarts);
 
 module.exports = router;
