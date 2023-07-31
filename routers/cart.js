@@ -2,7 +2,6 @@ const router = require("express").Router();
 
 const {
   getAccessToRoute,
-  adminCanOperateCart,
   onlyAdminCanOperate,
 } = require("../middlewares/auth/auth");
 
@@ -14,15 +13,11 @@ const {
   getAllCarts,
 } = require("../controllers/cart");
 
-router.post("/create", getAccessToRoute, createCart);
+router.post("/create", createCart);
 
-router.put("/update/:id", [getAccessToRoute, adminCanOperateCart], updateCart);
+router.put("/update/:id", updateCart);
 
-router.delete(
-  "/delete/:id",
-  [getAccessToRoute, adminCanOperateCart],
-  deleteCart
-);
+router.delete("/delete/:id", deleteCart);
 
 router.get("/:id", getAccessToRoute, getCart);
 router.get("/", [getAccessToRoute, onlyAdminCanOperate], getAllCarts);

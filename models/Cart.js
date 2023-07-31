@@ -14,6 +14,7 @@ const CartSchema = new Schema(
           type: Number,
           default: 1,
         },
+        price: Number,
       },
     ],
   },

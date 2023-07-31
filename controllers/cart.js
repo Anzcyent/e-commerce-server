@@ -3,20 +3,24 @@ const errorWrapper = require("express-async-handler");
 const Cart = require("../models/Cart");
 
 const createCart = errorWrapper(async (req, res, next) => {
-  const cart = await Cart.create(req.body);
+  const cart = await new Cart();
+
+  cart.products.push(req.body.product);
+  cart.customer = req.body.customer;
+
+  await cart.save();
 
   return res.status(201).json({ cart });
 });
 
 const updateCart = errorWrapper(async (req, res, next) => {
-  const updatedCart = await Cart.findByIdAndUpdate(
-    req.params.id,
-    {
-      $set: req.body,
-    },
-    { new: true }
-  );
+  const updatedCart = await Cart.findById(req.params.id);
 
+  updatedCart.customer = req.body.customer;
+  updatedCart.products.push(req.body.product);
+
+  await updatedCart.save();
+   
   if (!updatedCart) return next(new CustomError("Cart not found", 404));
 
   return res.status(200).json({ updatedCart });
