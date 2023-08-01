@@ -8,12 +8,11 @@ const CartSchema = new Schema(
     },
     products: [
       {
-        type: Types.ObjectId,
-        ref: "Product",
+        type: Object,
       },
     ],
     total: Number,
-    quantity: Number
+    quantity: Number,
   },
   {
     timestamps: true,
