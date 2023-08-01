@@ -11,6 +11,7 @@ const {
   deleteCart,
   getCart,
   getAllCarts,
+  deleteItemInCart,
 } = require("../controllers/cart");
 
 router.post("/create", createCart);
@@ -18,6 +19,7 @@ router.post("/create", createCart);
 router.put("/update/:id", updateCart);
 
 router.delete("/delete/:id", deleteCart);
+router.delete("/deleteItem/:id", deleteItemInCart )
 
 router.get("/:id", getCart);
 router.get("/", [getAccessToRoute, onlyAdminCanOperate], getAllCarts);

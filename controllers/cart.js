@@ -53,4 +53,28 @@ const getAllCarts = errorWrapper(async (req, res, next) => {
   return res.status(200).json({ carts });
 });
 
-module.exports = { createCart, updateCart, deleteCart, getCart, getAllCarts };
+const deleteItemInCart = errorWrapper(async (req, res, next) => {
+  const cart = await Cart.findById(req.params.id);
+  const { productId } = req.query;
+
+  const removedProduct = cart.products.find((product) => product._id === productId);
+  const removedProductPrice = removedProduct ? removedProduct.price : 0;
+
+  cart.total -= removedProductPrice;
+
+  cart.products = cart.products.filter((product) => product._id !== productId);
+  cart.quantity = cart.products.length;
+
+  await cart.save();
+
+  return res.status(200).json({ cart });
+});
+
+module.exports = {
+  createCart,
+  updateCart,
+  deleteCart,
+  getCart,
+  getAllCarts,
+  deleteItemInCart,
+};
