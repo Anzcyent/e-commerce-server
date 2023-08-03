@@ -1,9 +1,12 @@
 const CustomError = require("../helpers/error/CustomError");
 const errorWrapper = require("express-async-handler");
 const Order = require("../models/Order");
+const Cart = require("../models/Cart");
 
 const createOrder = errorWrapper(async (req, res, next) => {
   const order = await Order.create(req.body);
+
+  const cart = await Cart.findByIdAndDelete(req.body.cart);
 
   return res.status(201).json({ order });
 });
@@ -72,5 +75,5 @@ module.exports = {
   deleteOrder,
   getUserOrders,
   getAllOrders,
-  getMonthlyIncome
+  getMonthlyIncome,
 };

@@ -48,11 +48,6 @@ const getCart = errorWrapper(async (req, res, next) => {
   return res.status(200).json({ cart });
 });
 
-const getAllCarts = errorWrapper(async (req, res, next) => {
-  const carts = await Cart.find();
-  return res.status(200).json({ carts });
-});
-
 const deleteItemInCart = errorWrapper(async (req, res, next) => {
   const cart = await Cart.findById(req.params.id);
   const { productId } = req.query;
@@ -75,6 +70,5 @@ module.exports = {
   updateCart,
   deleteCart,
   getCart,
-  getAllCarts,
   deleteItemInCart,
 };

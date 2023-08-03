@@ -2,20 +2,10 @@ const { Schema, model, Types } = require("mongoose");
 
 const OrderSchema = new Schema(
   {
-    customer: {
+    customerId: {
       type: Types.ObjectId,
       ref: "User",
     },
-    products: [
-      {
-        type: Types.ObjectId,
-        ref: "Product",
-        quantity: {
-          type: Number,
-          default: 1,
-        },
-      },
-    ],
     totalPrice: {
       type: Number,
     },
@@ -27,6 +17,14 @@ const OrderSchema = new Schema(
       type: String,
       default: "Pending",
     },
+    cart: {
+      type: Types.ObjectId,
+      ref: "Cart",
+    },
+    products: {
+      type: Object
+    },
+    customerName: String
   },
   {
     timestamps: true,

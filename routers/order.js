@@ -14,7 +14,7 @@ const {
   onlyAdminCanOperate,
 } = require("../middlewares/auth/auth");
 
-router.post("/create", getAccessToRoute, createOrder);
+router.post("/create", createOrder);
 router.put(
   "/update/:id",
   [getAccessToRoute, adminCanOperateOrder],
