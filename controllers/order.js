@@ -33,6 +33,14 @@ const deleteOrder = errorWrapper(async (req, res, next) => {
   return res.status(200).json({ order });
 });
 
+const getOrder = errorWrapper(async (req, res, next) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) return next(new CustomError("Order not found", 404));
+
+  return res.status(200).json({ order });
+});
+
 const getUserOrders = errorWrapper(async (req, res, next) => {
   const orders = await Order.find({ userId: req.params.userId });
 
@@ -73,6 +81,7 @@ module.exports = {
   createOrder,
   updateOrder,
   deleteOrder,
+  getOrder,
   getUserOrders,
   getAllOrders,
   getMonthlyIncome,

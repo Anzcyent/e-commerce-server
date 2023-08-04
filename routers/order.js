@@ -7,6 +7,7 @@ const {
   getUserOrders,
   getAllOrders,
   getMonthlyIncome,
+  getOrder,
 } = require("../controllers/order");
 const {
   getAccessToRoute,
@@ -25,7 +26,9 @@ router.delete(
   [getAccessToRoute, adminCanOperateOrder],
   deleteOrder
 );
-router.get("/userId", [getAccessToRoute, onlyAdminCanOperate], getUserOrders);
+
+router.get("/:id", getOrder);
+router.get("/:userId", [getAccessToRoute, onlyAdminCanOperate], getUserOrders);
 router.get("/", [getAccessToRoute, onlyAdminCanOperate], getAllOrders);
 
 router.get(
