@@ -2,11 +2,22 @@ const CustomError = require("../helpers/error/CustomError");
 const errorWrapper = require("express-async-handler");
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
+const User = require("../models/User");
 
 const createOrder = errorWrapper(async (req, res, next) => {
+  const { customerId } = req.body;
+
   const order = await Order.create(req.body);
 
   const cart = await Cart.findByIdAndDelete(req.body.cart);
+
+  if (customerId) {
+    const user = await User.findById(customerId);
+
+    user.orders.push(order._id);
+    
+    await user.save();
+  }
 
   return res.status(201).json({ order });
 });

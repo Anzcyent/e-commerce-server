@@ -7,7 +7,7 @@ const UserSchema = new Schema(
     username: {
       type: String,
       required: [true, "Please provide a username."],
-      unique: true
+      unique: true,
     },
     email: {
       type: String,
@@ -24,10 +24,12 @@ const UserSchema = new Schema(
       minlength: [6, "Please provide a password at least 6 characters long"],
       select: false,
     },
-    orders: {
-      type: Types.ObjectId,
-      ref: "Order",
-    },
+    orders: [
+      {
+        type: Types.ObjectId,
+        ref: "Order",
+      },
+    ],
     isAdmin: {
       type: Boolean,
       default: false,
@@ -36,10 +38,12 @@ const UserSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    products: {
-      type: Types.ObjectId,
-      ref: "Product",
-    },
+    products: [
+      {
+        type: Types.ObjectId,
+        ref: "Product",
+      },
+    ],
   },
   {
     timestamps: true,
