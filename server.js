@@ -1,6 +1,6 @@
 const express = require("express");
 require("dotenv").config();
-const connectDB = require('./helpers/db/connectDb')
+const connectDB = require("./helpers/db/connectDb");
 const routers = require("./routers");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
@@ -13,7 +13,7 @@ connectDB();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://shopeazy-client.onrender.com"],
     credentials: true,
   })
 );
@@ -22,4 +22,7 @@ app.use(express.json());
 app.use("/api", routers);
 app.use(errorHandler);
 
-app.listen(PORT, console.log(`Server started on port ${PORT} | ${process.env.NODE_ENV}`));
+app.listen(
+  PORT,
+  console.log(`Server started on port ${PORT} | ${process.env.NODE_ENV}`)
+);
