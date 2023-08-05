@@ -20,7 +20,7 @@ const errorHandler = (err, req, res, next) => {
   }
   if (err.code === 11000) {
     customError = new CustomError(
-      "Duplicate key error. Please check your credentials.",
+      "Duplicate key error. Please change your email address or product credentials.",
       400
     );
   }
