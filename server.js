@@ -11,12 +11,7 @@ const PORT = process.env.PORT || 5000;
 
 connectDB();
 
-app.use(
-  cors({
-    origin: ["https://shopeazy-client.onrender.com"],
-    credentials: true,
-  })
-);
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api", routers);
