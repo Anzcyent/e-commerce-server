@@ -71,7 +71,7 @@ const adminCanOperateCart = errorWrapper(async (req, res, next) => {
 const adminCanOperateOrder = errorWrapper(async (req, res, next) => {
   const order = await Order.findById(req.params.id);
 
-  if (String(order.customer) === String(req.user._id) || req.user.isAdmin) {
+  if (String(order.customerId) === String(req.user._id) || req.user.isAdmin) {
     return next();
   } else {
     return next(new CustomError("You can't do this operation.", 403));

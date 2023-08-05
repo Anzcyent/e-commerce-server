@@ -28,7 +28,7 @@ router.delete(
 );
 
 router.get("/:id", getOrder);
-router.get("/:userId", [getAccessToRoute, onlyAdminCanOperate], getUserOrders);
+router.get("/userOrders/:userId", getAccessToRoute, getUserOrders);
 router.get("/", [getAccessToRoute, onlyAdminCanOperate], getAllOrders);
 
 router.get(

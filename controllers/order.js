@@ -53,7 +53,7 @@ const getOrder = errorWrapper(async (req, res, next) => {
 });
 
 const getUserOrders = errorWrapper(async (req, res, next) => {
-  const orders = await Order.find({ userId: req.params.userId });
+  const orders = await Order.find({ customerId: req.params.userId });
 
   return res.status(200).json({ orders });
 });
